@@ -1,0 +1,8 @@
+services:
+  bot:
+    build: .
+    labels:
+      shipyard.route: '/'
+      shipyard.primary-route: 'true'
+    ports:
+      - 8087:8087
