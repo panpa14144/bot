@@ -16,6 +16,8 @@ ENV SINUS_USER="sinusbot" \
 ENV SINUS_DATA_DIR="${SINUS_DIR}/data" \
     TS3_DIR="${SINUS_DIR}/TeamSpeak3-Client-linux_amd64"
 
+RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get -y install tzdata
+
 RUN apt-get update && \
     apt-get install -y \
       locales \
