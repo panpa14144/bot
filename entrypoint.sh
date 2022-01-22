@@ -8,7 +8,7 @@ chown -fR "$SINUS_USER":"$SINUS_GROUP" -R "$SINUS_DIR"
 sleep 2
 
 echo "Checking for youtube-dl updates"
-$YTDL_BIN -U
+$YTDLP_BIN -U
 sleep 2
 
 echo "Start sinusbot"
