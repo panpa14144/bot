@@ -7,9 +7,9 @@ ENV SINUS_USER="sinusbot" \
     SINUS_USERID="3000" \
     SINUS_GROUPID="3000" \
     SINUS_DIR="/sinusbot" \
-    YTDL_BIN="/usr/local/bin/youtube-dl" \
+    YTDLP_BIN="/usr/local/bin/yt-dlp" \
     SINUS_DL_URL="https://www.sinusbot.com/dl/sinusbot.current.tar.bz2" \
-    YTDL_VERSION="latest" \
+    YTDLP_VERSION="latest" \
     TS3_VERSION="3.5.6" \
     TS3_OFFSET="1386"
 
@@ -36,14 +36,15 @@ RUN apt-get update && \
       libxslt1.1 \
       libxkbcommon0 \
       python \
+	  python3 \
       bzip2 \
       sqlite3 \
       ca-certificates
 RUN groupadd -g "$SINUS_GROUPID" -r "$SINUS_GROUP" && \
     useradd -u "$SINUS_USERID" -r -g "$SINUS_GROUP" -d "$SINUS_DIR" "$SINUS_USER" && \
     update-ca-certificates && \
-    wget --no-check-certificate -q -O "$YTDL_BIN" "https://yt-dl.org/downloads/$YTDL_VERSION/youtube-dl" && \
-    chmod 755 -f "$YTDL_BIN" && \
+    wget --no-check-certificate -q -O "$YTDLP_BIN" "https://github.com/yt-dlp/yt-dlp/releases/$YTDLP_VERSION/download/yt-dlp" && \
+    chmod 755 -f "$YTDLP_BIN" && \
     locale-gen --purge en_US.UTF-8 && \
     echo LC_ALL=en_US.UTF-8 >> /etc/default/locale && \
     echo LANG=en_US.UTF-8 >> /etc/default/locale && \
@@ -62,7 +63,7 @@ RUN groupadd -g "$SINUS_GROUPID" -r "$SINUS_GROUP" && \
     rm "$TS3_DIR/xcbglintegrations/libqxcb-glx-integration.so" && \
     mv -f "$SINUS_DIR/config.ini.dist" "$SINUS_DIR/config.ini" && \
     sed -i "s|TS3Path = .*|TS3Path = \"$TS3_DIR/ts3client_linux_amd64\"|g" "$SINUS_DIR/config.ini" && \
-    echo YoutubeDLPath = \"$YTDL_BIN\" >> "$SINUS_DIR/config.ini" && \
+    echo YoutubeDLPath = \"$YTDLP_BIN\" >> "$SINUS_DIR/config.ini" && \
     cp -f "$SINUS_DIR/plugin/libsoundbot_plugin.so" "$TS3_DIR/plugins/" && \
     chown -fR "$SINUS_USER":"$SINUS_GROUP" "$SINUS_DIR" "$TS3_DIR" && \
     apt-get -qq clean && \
