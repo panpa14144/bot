@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM ubuntu:focal
 
 LABEL MAINTAINER Patrick Stebbe <info@moonliightz.de>
 
