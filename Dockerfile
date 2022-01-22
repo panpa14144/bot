@@ -36,7 +36,7 @@ RUN apt-get update && \
       libxslt1.1 \
       libxkbcommon0 \
       python \
-	  python3 \
+      python3 \
       bzip2 \
       sqlite3 \
       ca-certificates
